@@ -1,60 +1,86 @@
-*{
-    margin: 0px;
-    padding: 0px;
+h1{
+    font-family: 'Press Start 2P', cursive;
+    font-size: 3rem;
+    padding: 2% 2% 0%;
+    color: #ef7f43;
 }
-.section-heading {
-    text-align:center;
-    color:#d4e8ff;
-    margin-top: 30px;
-    margin-bottom:80px;
-    font-size: 55px;
-  }
-#level-title{
-    text-align:center;
-    color:#060707;
-    margin-top: 25px;
-    margin-bottom:10px;
-    font-size: 15px;
-}  
-  /* .btn {
-    width: 20px;
-    padding: 10px;
-    margin: 1px;
-    height: 20px;
-    background-color:rgb(169, 233, 162);
-    
-  }
-   */
-  div{
-      display: inline-block;
-  }
-  .big-box{
-      border: 1px solid blue;
-      width: 100%;
-      text-align: center;
-  }
-  .background{
-      background-color: rgb(77, 55, 77);
-  }
-  .glow{
-    background-color: cyan;
-    }
-  
- .btn{
-  padding: 15px 25px;
-  font-size: 24px;
-  text-align: center;
-  cursor: pointer;
-  outline: none;
-  color: #fff;
-  background-color: #04AA6D;
-  border: none;
-  border-radius: 15px;
-  box-shadow: 0 9px #999;
- }
+h2{
+    color: rgb(5, 26, 3);
+    padding: 1.5% 0 0;
+    font-size: 1.75rem;
+}
 
- .btn:active {
-    background-color: #3e8e41;
-    box-shadow: 0 5px #666;
-    transform: translateY(4px);
-  }
+body{
+    text-align: center;
+    background-color: #012e97;
+}
+
+.container{
+
+    display: block;
+    width: 100%;
+    margin: 50px auto 30px;
+}
+
+.btn{
+    background-color: rgb(75, 71, 71);
+    margin: 2.65px;
+    display: inline-block;
+    height: 90px;
+    width: 90px;
+    border: 3.7px solid black;
+    border-radius: 10px;
+}
+
+
+
+.pressed {
+    box-shadow: 0 0 20px white;
+    background-color: grey;
+}
+
+.game-over{
+    background-color: red;
+}
+
+@media (max-width: 1008px) {
+
+    .btn{
+        height: 84px;
+        width: 84px;
+    }
+    h1{
+        font-size: 2.39rem;
+    }
+    h2{
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 840px) {
+
+    .btn{
+        height: 50px;
+        width: 50px;
+    }   
+    h1{
+        font-size: 2.1rem;
+    } 
+    h2{
+        font-size: 1.65rem;
+    }
+}
+
+@media (max-width: 660px) {
+
+    .btn{
+        height: 50px;
+        width: 50px;
+    }    
+    h1{
+        font-size: 1.91rem;
+    }
+    h2{
+        font-size: 1.57rem;
+    }
+}
