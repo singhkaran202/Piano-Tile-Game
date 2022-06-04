@@ -1,123 +1,143 @@
-alert("Game instructions:1. Follow which tile blinks and press that tile accordingly.2.Press any button to start the game initially. After finishing the game refresh the page to start a new game ");
-
-var buttonNumbers = ["key1", "key2", "key3", "key4", "key5", "key6", "key7", "key8", "key9", "key10", "key11", "key12", "key13", "key14", "key15", "key16"];
+var started = true;
+var level = 0;
 
 var gamePattern = [];
+var playerPattern = [];
 
-var userClickedPattern = [];
-
-var started = false;
-var level = 0;
-var k=1000;
-
-document.querySelector("body").addEventListener("keydown", function() {
-  if (!started) {
-    document.querySelector("#level-title").innerHTML = (level-1);
-    nextSequence();
-    setTimeout(function() {
-      nextSequence();
-    }, 100);  
-    // setTimeout(function() {
-    //   nextSequence();
-    // }, 200);
-    started = true;
-  }
-
-})
-
-
-for (var i = 0; i < (document.querySelectorAll(".btn").length); i++) {
-  document.querySelectorAll(".btn")[i].addEventListener("click", function() {
-    var userChosenKey = this.getAttribute("id");
-    userClickedPattern.push(userChosenKey);
-    gamePattern.push(userChosenKey);
-    console.log(userClickedPattern);
-    playSound(userChosenKey);
-    animatePress(userChosenKey);
-    checkAnswer(userClickedPattern.length - 1);
-  });
+function playSound(){
+    var aud = new Audio("sounds/sounds.wav");
+    aud.play();
 }
 
-function nextSequence() {
+function gameOverSound(){
+    var aud = new Audio("sounds/gameover.wav");
+    aud.play();
+}
+
+function playSound2(){
+    var aud = new Audio("sounds/wrong.mp3");
+    aud.play();
+}
+
+function tileEffects(tile){
+    var activeTile = document.getElementById(tile);
+    activeTile.classList.add("pressed");
+    setTimeout(function(){
+        activeTile.classList.remove('pressed');
+    },200);
+}
+function nextTile(){
+    var rand = Math.floor(Math.random() *16) + 1;
+    gamePattern.push(''+rand);
+    tileEffects(rand);
+    playSound2();
+}
+
+var intId;
+function previousTileEffects(){
+    var t=0;
+    document.getElementById("timer").innerHTML= '00:00';
     level++;
-    document.querySelector("#level-title").innerHTML = (level-1);
-    var randomNumber = Math.floor(Math.random() * 16);
-    var randomChosenKey = buttonNumbers[randomNumber];
-    gamePattern.push(randomChosenKey);
-  
-    animatePress(randomChosenKey); 
-    playSound(randomChosenKey);
-  }
+    document.querySelector("h2").innerHTML = "Level " + level;
+    function effects(){
+      var activeTile = document.getElementById(gamePattern[t]);
+      playSound2();
+      activeTile.classList.add("pressed");
+      setTimeout(function(){
+        activeTile.classList.remove('pressed');
+      },250);
+      t++;
+      if(t>= gamePattern.length){
 
+          clearPreviosTileEffects();
+      }
+    }
+    intId = setInterval(effects,1000);  
 
+}
+function clearPreviosTileEffects(){
+    clearInterval(intId);
+}
 
-function checkAnswer(currentLevel) {
-
-  if (gamePattern[currentLevel] === userClickedPattern[currentLevel]) {
-
-    console.log("success");
-
-    if (userClickedPattern.length === gamePattern.length) {
-      setTimeout(function() {
-        nextSequence();
-      }, 1000);
-      // setTimeout(function() {
-      //   nextSequence();
-      // }, 1100);
-      // setTimeout(function() {
-      //   nextSequence();
-      // }, 1200);
+document.addEventListener('keypress',function(){
+    if(started == true){
+       started = false;
+       nextTile();
     }
 
-  } else {
 
-    console.log("wrong");
+    function handleClick(){
+       var userChosenTile = this.id;
+       playerPattern.push(userChosenTile);
+       tileEffects(userChosenTile);
+       playSound();
+       var temp=[];
+       for(let z=0 ; z<gamePattern.length;z++){
+           temp.push(gamePattern[z]);
+       }
+       console.log(temp);
+       console.log(playerPattern);
+       console.log(gamePattern);
 
-    playSound("wrong");
-    document.querySelector("#level-title").innerHTML = ("Game Over, your score is " + (level-1));
-    document.querySelector("body").ClassList.add("game-over");
-    setTimeout(function() {
-      document.querySelector("body").ClassList.remove("game-over");
-    }, 200);
+       var gameProgress = 0;
+
+       for(i=0;i<playerPattern.length;i++){
+
+        if(temp.includes(playerPattern[i])){   
+            temp.pop(playerPattern[i]);
+            const index = temp.indexOf(playerPattern[i]);
+            if (index > -1) {
+                temp.splice(index, 1); 
+            }
+            console.log(temp);
+            gameProgress+=1 ;
+        }
+        else {
+            gameOverSound();
+            document.querySelector("body").classList.add("game-over");
+            var z = 1;
+            if(level==0){
+                z = 0;
+            }
+            document.querySelector("h2").innerHTML = "your score is : " + 10* Math.pow(2,level) * z;
+            setTimeout(GameOver,250);
+          }
+
+       }
 
 
-
-    //2. Call startOver() if the user gets the sequence wrong.
-    startOver();
-  }
-
-}
+       function GameOver(){ 
+        alert("Game Over");
+        location.reload(true); 
+      }
 
 
-// function nextSequence() {
-//     level++;
-//     document.querySelector("#level-title").innerHTML = (level-1);
-//     var randomNumber = Math.floor(Math.random() * 16);
-//     var randomChosenKey = buttonNumbers[randomNumber];
-//     gamePattern.push(randomChosenKey);
-  
-//     animatePress(randomChosenKey); 
-//     playSound(randomChosenKey);
-//   }
+       var Temp2 = [], Temp3 = [];
 
-var btn1 = randomChosenKey;
-btn1.addEventListener("click", addGlow);
+       for(var g of gamePattern){
+           Temp2.push(g);
+       }
+       for(var p of gamePattern){
+           Temp3.push(p);
+       }
 
-//the function addGlow, adds the glow class to btn2
-function addGlow() {
-//   var btn2 = document.getElementById("btn2");
-  btn1.classList.add("glow");
-}
 
-function playSound(bruh) {
-  var audio = new Audio('sounds/sounds.wav');
-  audio.play();
-}
+       Temp2.sort();
+       Temp3.sort();
 
-function animatePress(k) {
-  var activeButton = document.querySelector("." + k);
-  activeButton.classList.add("pressed");
-  setTimeout(function() {
-    activeButton.classList.remove("pressed");
-  }, 100);
-}
+       if(JSON.stringify(Temp3) === JSON.stringify(Temp2) && gameProgress == Temp2.length){
+           level++;
+           var levelhtml = "Level " + level;
+           document.querySelector("h2").innerHTML = levelhtml;
+           previousTileEffects();
+           setTimeout(nextTile, (gamePattern.length + 1)*1000);
+           playerPattern=[];
+       }
+
+    }
+
+    for(var n=0;n<16;n++){
+        document.querySelectorAll(".btn")[n].addEventListener("click",handleClick);  
+       }
+
+});
