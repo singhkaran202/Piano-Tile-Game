@@ -1,18 +1,15 @@
 h1{
-    font-family: 'Press Start 2P', cursive;
-    font-size: 3rem;
-    padding: 2% 2% 0%;
-    color: #ef7f43;
+    font-size: 3.5rem;
+    color: #682d0d;
 }
 h2{
-    color: rgb(5, 26, 3);
-    padding: 1.5% 0 0;
-    font-size: 1.75rem;
+    color: rgb(2, 6, 1);
+    font-size: 1.5rem;
 }
 
 body{
     text-align: center;
-    background-color: #012e97;
+    background-color: #068d7b;
 }
 
 .container{
@@ -26,8 +23,8 @@ body{
     background-color: rgb(75, 71, 71);
     margin: 2.65px;
     display: inline-block;
-    height: 90px;
-    width: 90px;
+    height: 70px;
+    width: 70px;
     border: 3.7px solid black;
     border-radius: 10px;
 }
@@ -36,51 +33,10 @@ body{
 
 .pressed {
     box-shadow: 0 0 20px white;
-    background-color: grey;
+    background-color: rgb(183, 183, 183);
 }
 
 .game-over{
     background-color: red;
 }
 
-@media (max-width: 1008px) {
-
-    .btn{
-        height: 84px;
-        width: 84px;
-    }
-    h1{
-        font-size: 2.39rem;
-    }
-    h2{
-        font-size: 1.8rem;
-    }
-}
-
-@media (max-width: 840px) {
-
-    .btn{
-        height: 50px;
-        width: 50px;
-    }   
-    h1{
-        font-size: 2.1rem;
-    } 
-    h2{
-        font-size: 1.65rem;
-    }
-}
-
-@media (max-width: 660px) {
-
-    .btn{
-        height: 50px;
-        width: 50px;
-    }    
-    h1{
-        font-size: 1.91rem;
-    }
-    h2{
-        font-size: 1.57rem;
-    }
-}
