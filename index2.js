@@ -1,3 +1,5 @@
+alert("Let's play the game")
+
 var started = true;
 var level = 0;
 
@@ -36,7 +38,6 @@ function nextTile(){
 var intId;
 function previousTileEffects(){
     var t=0;
-    document.getElementById("timer").innerHTML= '00:00';
     level++;
     document.querySelector("h2").innerHTML = "Level " + level;
     function effects(){
@@ -84,7 +85,6 @@ document.addEventListener('keypress',function(){
        for(i=0;i<playerPattern.length;i++){
 
         if(temp.includes(playerPattern[i])){   
-            temp.pop(playerPattern[i]);
             const index = temp.indexOf(playerPattern[i]);
             if (index > -1) {
                 temp.splice(index, 1); 
