@@ -38,7 +38,6 @@ function nextTile(){
 var intId;
 function previousTileEffects(){
     var t=0;
-    level++;
     document.querySelector("h2").innerHTML = "Level " + level;
     function effects(){
       var activeTile = document.getElementById(gamePattern[t]);
